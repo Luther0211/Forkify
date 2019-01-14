@@ -1,5 +1,4 @@
 import { elements } from './base'
-import { type } from 'os';
 
 export const getInput = () => elements.searchInput.value;
 
