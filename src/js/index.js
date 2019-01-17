@@ -3,7 +3,6 @@ import Recipe from './models/Recipe'
 import * as searchView from './views/searchView'
 import { elements, renderLoader, clearLoader } from './views/base'
 import Swal from 'sweetalert2'
-import swal from 'sweetalert2';
 
 // Global State Of The App
 //*- Search object
@@ -75,6 +74,9 @@ const controlRecipe = async () => {
 
     //create New Recipe Obj
     state.recipe = new Recipe(id)
+
+    //TESTING
+    window.r = state.recipe;
 
     try {
       //get recipe data
