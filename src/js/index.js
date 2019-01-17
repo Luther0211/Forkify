@@ -2,6 +2,8 @@ import Search from './models/Search'
 import Recipe from './models/Recipe'
 import * as searchView from './views/searchView'
 import { elements, renderLoader, clearLoader } from './views/base'
+import Swal from 'sweetalert2'
+import swal from 'sweetalert2';
 
 // Global State Of The App
 //*- Search object
@@ -29,13 +31,20 @@ const controlSearch = async () => {
       await state.search.getResult();
   
       //5 Render results on UI
-      clearLoader();
-      searchView.renderResults(state.search.result)
+      if(state.search.result.length === 0) {
+        clearLoader()
+        Swal(`Recipe for "${query}" not found!`, 'Please try something else!', 'error')
+      } else {
+        clearLoader();
+        searchView.renderResults(state.search.result)
+      }
 
     } catch(error) {
       alert("Recipe not found :(")
       clearLoader();
     }
+  } else {
+    Swal('You need to type something!', 'Please type something to search for recipes!', 'info')
   }
 }
 
@@ -90,4 +99,4 @@ const controlRecipe = async () => {
 // *ADDING SAME EVENTLISTENER TO MULTIPLE EVENTS* 
                                              
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe)) 
-                                    
+    
