@@ -101,4 +101,9 @@ const controlRecipe = async () => {
 // *ADDING SAME EVENTLISTENER TO MULTIPLE EVENTS* 
                                              
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe)) 
-    
+
+//Clicking on logo clears results
+elements.logo.addEventListener('click', e => {
+  e.preventDefault()
+  window.location = '/'
+})

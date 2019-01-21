@@ -24,6 +24,10 @@ body {
   background-repeat: no-repeat;
   min-height: calc(100vh - 2 * 4vw); }
 
+.header__logo:hover {
+  cursor: pointer;
+}
+
 .container {
   max-width: 120rem;
   margin: 4vw auto;
