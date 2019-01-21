@@ -48,9 +48,34 @@ export default class Recipe {
       ingredient = ingredient.replace(/ *\([^)]*\) */g, ' ')
 
       //3 parse ingredients into count,  unit & ingredient
+      const arrIng = ingredient.split(" ");
+      const unitIndex = arrIng.findIndex(cur => unitsShort.includes(cur))
       
+      let  objIng;
+      if(unitIndex > -1) {
+      //there is a unit
 
-      return ingredient
+      } else if(parseInt(arrIng[0], 10)) {
+      //there is no num but the first item is a number
+      objIng = {
+        count: parseInt(arrIng[0], 10),
+        unit: "",
+        ingredient: arrIng.slice(1).join(" ")
+      }
+
+      }else if(unitIndex === -1) {
+        //there is no number
+        objIng = {
+          count: 1,
+          unit: "",
+          ingredient
+        }
+
+      }
+
+      // console.log(objIng)
+
+      return objIng
     });
     this.ingredients = newIngredients;
   }
