@@ -52,11 +52,27 @@ export default class Recipe {
       const unitIndex = arrIng.findIndex(cur => unitsShort.includes(cur))
       
       let  objIng;
+
       if(unitIndex > -1) {
-      //there is a unit
+        //there is a unit
+        // ex 4 1/2 cups, arrCuantity => ['4', '1/2'] --> eval("4+1/2") => 4.5
+        const arrCuantity = arrIng.slice(0, unitIndex);
+
+        let cuantity;
+        if (arrCuantity.length === 1){
+          cuantity = eval(arrIng[0].replace('-', '+'));
+        } else {
+          cuantity = eval(arrIng.slice(0, unitIndex).join('+'));
+        }
+
+        objIng = {
+          cuantity, //:cuantity
+          unit: arrIng[unitIndex],
+          ingredient: arrIng.slice(unitIndex + 1).join(' ')
+        }
 
       } else if(parseInt(arrIng[0], 10)) {
-      //there is no num but the first item is a number
+      //there is no unit but the first item is a number
       objIng = {
         count: parseInt(arrIng[0], 10),
         unit: "",
@@ -68,7 +84,7 @@ export default class Recipe {
         objIng = {
           count: 1,
           unit: "",
-          ingredient
+          ingredient //: ingredient
         }
 
       }

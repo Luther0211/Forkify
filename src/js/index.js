@@ -75,12 +75,10 @@ const controlRecipe = async () => {
     //create New Recipe Obj
     state.recipe = new Recipe(id)
 
-    //TESTING
-    window.r = state.recipe;
-
     try {
-      //get recipe data
+      //get recipe data & parse ingredients
       await state.recipe.getRecipe()
+      state.recipe.parseIngredients()
 
       //Calc time & servings
       state.recipe.calcTime();
@@ -88,14 +86,10 @@ const controlRecipe = async () => {
 
       //render recipe
       console.log(state.recipe);
-      } catch (error) {
-        alert("Error Prossesing the recipe")
-      }
-
+    } catch (error) {
+      alert("Error Prossesing the recipe")
+    }
   }
-
-
-
 };
 
 // *ADDING SAME EVENTLISTENER TO MULTIPLE EVENTS* 
