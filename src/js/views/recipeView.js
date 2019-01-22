@@ -104,3 +104,5 @@ export const renderRecipe = recipe => {
   elements.recipe.insertAdjacentHTML("afterbegin", markup);
 
 }
+
+export const clearRecipe = () => elements.recipe.innerHTML = ""

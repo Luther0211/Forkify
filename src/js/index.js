@@ -72,6 +72,7 @@ const controlRecipe = async () => {
   
   if(id) {
     //prepare UI for update
+    recipeView.clearRecipe()
     renderLoader(elements.recipe);
 
     //create New Recipe Obj
@@ -89,7 +90,6 @@ const controlRecipe = async () => {
       //render recipe
       console.log(state.recipe);
       clearLoader()
-      // state.recipe.parseIngredients()
       recipeView.renderRecipe(state.recipe)
 
     } catch (error) {
