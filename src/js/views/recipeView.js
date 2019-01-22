@@ -1,11 +1,32 @@
 import { elements } from './base'
+import { Fraction } from 'fractional'
+
+const formatCuantity = cuantity => {
+  if(cuantity) {
+    // cuantity = 2.5 --> 2 1/2
+    // cuantity = 0.5 --> 1/2
+    const [int, dec] = cuantity.toString().split('.').map(cur => parseInt(cur, 10));
+
+    if(!dec) return cuantity;
+
+    if(int === 0) {
+      const fr = new Fraction(cuantity);
+      return `${fr.numerator}/${fr.denominator}`;
+
+    } else {
+      const fr = new Fraction(cuantity - int);
+      return `${int} ${fr.numerator}/${fr.denominator}`
+    }
+  }
+  return '?'
+}
 
 const createIngredient = ingredient => `
 <li class="recipe__item">
     <svg class="recipe__icon">
         <use href="img/icons.svg#icon-check"></use>
     </svg>
-    <div class="recipe__count">${ingredient.cuantity}</div>
+    <div class="recipe__count">${formatCuantity(ingredient.cuantity)}</div>
     <div class="recipe__ingredient">
         <span class="recipe__unit">${ingredient.unit}</span>
         ${ingredient.ingredient}
