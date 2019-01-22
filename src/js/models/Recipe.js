@@ -55,18 +55,18 @@ export default class Recipe {
 
       if(unitIndex > -1) {
         //there is a unit
-        // ex 4 1/2 cups, arrCuantity => ['4', '1/2'] --> eval("4+1/2") => 4.5
-        const arrCuantity = arrIng.slice(0, unitIndex);
+        // ex 4 1/2 cups, arrQuantity => ['4', '1/2'] --> eval("4+1/2") => 4.5
+        const arrQuantity = arrIng.slice(0, unitIndex);
 
-        let cuantity;
-        if (arrCuantity.length === 1){
-          cuantity = eval(arrIng[0].replace('-', '+'));
+        let quantity;
+        if (arrQuantity.length === 1){
+          quantity = eval(arrIng[0].replace('-', '+'));
         } else {
-          cuantity = eval(arrIng.slice(0, unitIndex).join('+'));
+          quantity = eval(arrIng.slice(0, unitIndex).join('+'));
         }
 
         objIng = {
-          cuantity,
+          quantity,
           unit: arrIng[unitIndex],
           ingredient: arrIng.slice(unitIndex + 1).join(' ')
         }
@@ -74,7 +74,7 @@ export default class Recipe {
       } else if(parseInt(arrIng[0], 10)) {
       //there is no unit but the first item is a number
       objIng = {
-        cuantity: parseInt(arrIng[0], 10),
+        quantity: parseInt(arrIng[0], 10),
         unit: "",
         ingredient: arrIng.slice(1).join(" ")
       }
@@ -82,7 +82,7 @@ export default class Recipe {
       }else if(unitIndex === -1) {
         //there is no number
         objIng = {
-          cuantity: 1,
+          quantity: 1,
           unit: "",
           ingredient //: ingredient
         }
@@ -96,4 +96,15 @@ export default class Recipe {
     this.ingredients = newIngredients;
   }
 
+  updateServings(type) {
+    // Servings
+    const newServings = type === 'dec' ? this.servings - 1 : this.servings + 1
+
+    //Ingredients
+    this.ingredients.forEach(ing => {
+      ing.quantity *= (newServings / this.servings);
+    })
+    
+    this.servings = newServings;
+  }
 }

@@ -1,20 +1,21 @@
 import { elements } from './base'
 import { Fraction } from 'fractional'
+import { format } from 'path';
 
-const formatCuantity = cuantity => {
-  if(cuantity) {
-    // cuantity = 2.5 --> 2 1/2
-    // cuantity = 0.5 --> 1/2
-    const [int, dec] = cuantity.toString().split('.').map(cur => parseInt(cur, 10));
+const formatQuantity = quantity => {
+  if(quantity) {
+    // quantity = 2.5 --> 2 1/2
+    // quantity = 0.5 --> 1/2
+    const [int, dec] = quantity.toString().split('.').map(cur => parseInt(cur, 10));
 
-    if(!dec) return cuantity;
+    if(!dec) return quantity;
 
     if(int === 0) {
-      const fr = new Fraction(cuantity);
+      const fr = new Fraction(quantity);
       return `${fr.numerator}/${fr.denominator}`;
 
     } else {
-      const fr = new Fraction(cuantity - int);
+      const fr = new Fraction(quantity - int);
       return `${int} ${fr.numerator}/${fr.denominator}`
     }
   }
@@ -26,7 +27,7 @@ const createIngredient = ingredient => `
     <svg class="recipe__icon">
         <use href="img/icons.svg#icon-check"></use>
     </svg>
-    <div class="recipe__count">${formatCuantity(ingredient.cuantity)}</div>
+    <div class="recipe__count">${formatQuantity(ingredient.quantity)}</div>
     <div class="recipe__ingredient">
         <span class="recipe__unit">${ingredient.unit}</span>
         ${ingredient.ingredient}
@@ -63,12 +64,12 @@ export const renderRecipe = recipe => {
         <span class="recipe__info-text"> servings</span>
 
         <div class="recipe__info-buttons">
-            <button class="btn-tiny">
+            <button class="btn-tiny btn-decrease">
                 <svg>
                     <use href="img/icons.svg#icon-circle-with-minus"></use>
                 </svg>
             </button>
-            <button class="btn-tiny">
+            <button class="btn-tiny btn-increase">
                 <svg>
                     <use href="img/icons.svg#icon-circle-with-plus"></use>
                 </svg>
@@ -127,3 +128,14 @@ export const renderRecipe = recipe => {
 }
 
 export const clearRecipe = () => elements.recipe.innerHTML = ""
+
+export const updateServingsIngredients = recipe => {
+    //update servings
+    document.querySelector('.recipe__info-data--people').textContent = recipe.servings
+
+    // update ingredients
+    const quantityElements = Array.from(document.querySelectorAll('.recipe__count'));
+    quantityElements.forEach((el, i) => {
+        el.textContent = formatQuantity(recipe.ingredients[i].quantity);
+    })
+}
