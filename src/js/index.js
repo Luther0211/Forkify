@@ -1,6 +1,7 @@
 import Search from './models/Search'
 import Recipe from './models/Recipe'
 import * as searchView from './views/searchView'
+import * as recipeView from './views/recipeView'
 import { elements, renderLoader, clearLoader } from './views/base'
 import Swal from 'sweetalert2'
 
@@ -71,6 +72,7 @@ const controlRecipe = async () => {
   
   if(id) {
     //prepare UI for update
+    renderLoader(elements.recipe);
 
     //create New Recipe Obj
     state.recipe = new Recipe(id)
@@ -86,6 +88,10 @@ const controlRecipe = async () => {
 
       //render recipe
       console.log(state.recipe);
+      clearLoader()
+      // state.recipe.parseIngredients()
+      recipeView.renderRecipe(state.recipe)
+
     } catch (error) {
       alert("Error Prossesing the recipe")
     }

@@ -29,7 +29,7 @@ export default class Recipe {
   }
 
   calcServings() {
-    this.Servings = 4;
+    this.servings = 4;
   }
 
   parseIngredients() {
@@ -66,7 +66,7 @@ export default class Recipe {
         }
 
         objIng = {
-          cuantity, //:cuantity
+          cuantity,
           unit: arrIng[unitIndex],
           ingredient: arrIng.slice(unitIndex + 1).join(' ')
         }
@@ -74,7 +74,7 @@ export default class Recipe {
       } else if(parseInt(arrIng[0], 10)) {
       //there is no unit but the first item is a number
       objIng = {
-        count: parseInt(arrIng[0], 10),
+        cuantity: parseInt(arrIng[0], 10),
         unit: "",
         ingredient: arrIng.slice(1).join(" ")
       }
@@ -82,7 +82,7 @@ export default class Recipe {
       }else if(unitIndex === -1) {
         //there is no number
         objIng = {
-          count: 1,
+          cuantity: 1,
           unit: "",
           ingredient //: ingredient
         }
