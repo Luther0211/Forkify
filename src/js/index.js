@@ -1,5 +1,6 @@
 import Search from './models/Search'
 import Recipe from './models/Recipe'
+import List from './models/List'
 import * as searchView from './views/searchView'
 import * as recipeView from './views/recipeView'
 import { elements, renderLoader, clearLoader } from './views/base'
@@ -91,7 +92,7 @@ const controlRecipe = async () => {
       state.recipe.calcServings();
 
       //render recipe
-      console.log(state.recipe);
+      // console.log(state.recipe);
       clearLoader()
       recipeView.renderRecipe(state.recipe)
 
@@ -128,6 +129,8 @@ elements.recipe.addEventListener('click', e => {
 
 
   }
-  console.log(state.recipe.ingredients)
+  // console.log(state.recipe.ingredients)
 
 });
+
+window.l = new  List()

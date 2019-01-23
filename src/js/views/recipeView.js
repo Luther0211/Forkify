@@ -136,6 +136,6 @@ export const updateServingsIngredients = recipe => {
     // update ingredients
     const quantityElements = Array.from(document.querySelectorAll('.recipe__count'));
     quantityElements.forEach((el, i) => {
-        el.textContent = formatQuantity(recipe.ingredients[i].quantity);
+        el.textContent = formatQuantity(recipe.ingredients[i].quantity);  //----------------
     })
 }

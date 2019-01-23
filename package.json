@@ -23,6 +23,7 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "fractional": "^1.0.0",
-    "sweetalert2": "^7.33.1"
+    "sweetalert2": "^7.33.1",
+    "uniqid": "^5.0.3"
   }
 }
