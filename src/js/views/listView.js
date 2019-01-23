@@ -7,7 +7,7 @@ export const renderItem = item => {
           <input type="number" value="${item.quantity}" step="${item.quantity}" class="shopping__count-value">
           <p>${item.unit}</p>
       </div>
-      <p class="shopping__description">${unit.ingredient}</p>
+      <p class="shopping__description">${item.ingredient}</p>
       <button class="shopping__delete btn-tiny">
           <svg>
               <use href="img/icons.svg#icon-circle-with-cross"></use>
