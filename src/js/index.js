@@ -13,6 +13,7 @@ import Swal from 'sweetalert2'
 //*- Shopping list object
 //*- Liked recipes object
 const state = {}
+window.state = state
 
 /* SEARCH CONTROLLER */
 const controlSearch = async () => {
@@ -119,11 +120,33 @@ const controlList = () => {
   });
 }
 
+// Handle delete and update item events
+elements.shopping.addEventListener('click', e => {
+  const id = e.target.closest('.shopping__item').dataset.itemid;
+
+  //Handle the delete button event
+  if(e.target.matches('.shopping__delete, .shopping__delete *')) {
+    // Delete from state
+    state.list.deleteItem(id)
+
+    // Delete from UI
+    listView.deleteItem(id)
+
+    //Handle the count update
+  } else if (e.target.matches('.shopping__count-value')) {
+    const val = parseFloat(e.target.value);
+    state.list.updateQuantity(id, val);
+  }
+
+});
+
+
 //Clicking on logo clears results
 elements.logo.addEventListener('click', e => {
   e.preventDefault()
   window.location = '/'
-})
+});
+
 
 //Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
