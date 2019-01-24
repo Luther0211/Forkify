@@ -1,6 +1,7 @@
 import Search from './models/Search'
 import Recipe from './models/Recipe'
 import List from './models/List'
+import Favorites from './models/Favorites';
 import * as searchView from './views/searchView'
 import * as recipeView from './views/recipeView'
 import * as listView from './views/listView'
@@ -120,6 +121,7 @@ const controlList = () => {
   });
 }
 
+
 // Handle delete and update item events
 elements.shopping.addEventListener('click', e => {
   const id = e.target.closest('.shopping__item').dataset.itemid;
@@ -148,6 +150,38 @@ elements.logo.addEventListener('click', e => {
 });
 
 
+
+/* FAVORITES CONTROLLER */
+const controlFav = () => {
+  if(!state.favs) state.favs = new Favorites();
+  const currentID = state.recipe.id
+
+  //User has not yet favd current recipe
+  if (!state.favs.isFaved(currentID)) {
+    //add fav to data
+    const newFav = state.favs.addFav(currentID, state.recipe.title, state.recipe.author, state.recipe.img)
+
+    //toggle fav btn
+
+
+    //add fav to UI list
+console.log(state.favs)
+
+// User HAS favd current recipe
+} else {
+  //remove fav from data
+  state.favs.deleteFav(currentID)
+  
+  //toggle fav btn
+  
+  
+  //remove fav from UI list
+  console.log(state.favs)
+
+  }
+}
+
+
 //Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
 
@@ -163,7 +197,11 @@ elements.recipe.addEventListener('click', e => {
     state.recipe.updateServings('inc')
     recipeView.updateServingsIngredients(state.recipe)
   } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+    //Add ingredients to shopping list
     controlList();
+  } else if (e.target.matches(".recipe__love, .recipe__love *")) {
+    // Fav controller
+    controlFav();
   }
 
   // console.log(state.recipe.ingredients)
