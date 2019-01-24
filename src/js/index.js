@@ -5,6 +5,7 @@ import Favorites from './models/Favorites';
 import * as searchView from './views/searchView'
 import * as recipeView from './views/recipeView'
 import * as listView from './views/listView'
+import * as favoritesView from './views/favoritesView'
 import { elements, renderLoader, clearLoader } from './views/base'
 import Swal from 'sweetalert2'
 
@@ -97,9 +98,10 @@ const controlRecipe = async () => {
       //render recipe
       // console.log(state.recipe);
       clearLoader()
-      recipeView.renderRecipe(state.recipe)
+      recipeView.renderRecipe(state.recipe, state.favs.isFaved(id))
 
     } catch (error) {
+      console.log(error)
       alert("Error Prossesing the recipe")
     }
   }
@@ -152,6 +154,11 @@ elements.logo.addEventListener('click', e => {
 
 
 /* FAVORITES CONTROLLER */
+
+//for testing
+state.favs = new Favorites();
+favoritesView.toggleFavMenu(state.favs.getNumFavs());
+
 const controlFav = () => {
   if(!state.favs) state.favs = new Favorites();
   const currentID = state.recipe.id
@@ -162,23 +169,26 @@ const controlFav = () => {
     const newFav = state.favs.addFav(currentID, state.recipe.title, state.recipe.author, state.recipe.img)
 
     //toggle fav btn
-
-
+    favoritesView.toggleFavBtn(true);
+    
     //add fav to UI list
-console.log(state.favs)
-
-// User HAS favd current recipe
-} else {
-  //remove fav from data
-  state.favs.deleteFav(currentID)
-  
-  //toggle fav btn
+    favoritesView.renderFav(newFav);
+    console.log(state.favs)
+    
+    // User HAS favd current recipe
+  } else {
+    //remove fav from data
+    state.favs.deleteFav(currentID)
+    
+    //toggle fav btn
+    favoritesView.toggleFavBtn(false);
   
   
   //remove fav from UI list
+  favoritesView.deleteFav(currentID)
   console.log(state.favs)
-
   }
+  favoritesView.toggleFavMenu(state.favs.getNumFavs());
 }
 
 
