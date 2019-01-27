@@ -6,16 +6,17 @@ const formatQuantity = quantity => {
   if(quantity) {
     // quantity = 2.5 --> 2 1/2
     // quantity = 0.5 --> 1/2
-    const [int, dec] = quantity.toString().split('.').map(cur => parseInt(cur, 10));
+    const newQuantity = Math.round(quantity * 10000) / 10000;
+    const [int, dec] = newQuantity.toString().split('.').map(cur => parseInt(cur, 10));
 
-    if(!dec) return quantity;
+    if(!dec) return newQuantity;
 
     if(int === 0) {
-      const fr = new Fraction(quantity);
+      const fr = new Fraction(newQuantity);
       return `${fr.numerator}/${fr.denominator}`;
 
     } else {
-      const fr = new Fraction(quantity - int);
+      const fr = new Fraction(newQuantity - int);
       return `${int} ${fr.numerator}/${fr.denominator}`
     }
   }

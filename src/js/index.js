@@ -15,7 +15,6 @@ import Swal from 'sweetalert2'
 //*- Shopping list object
 //*- Liked recipes object
 const state = {}
-window.state = state
 
 /* SEARCH CONTROLLER */
 const controlSearch = async () => {
