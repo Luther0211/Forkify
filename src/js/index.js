@@ -154,11 +154,6 @@ elements.logo.addEventListener('click', e => {
 
 
 /* FAVORITES CONTROLLER */
-
-//for testing
-state.favs = new Favorites();
-favoritesView.toggleFavMenu(state.favs.getNumFavs());
-
 const controlFav = () => {
   if(!state.favs) state.favs = new Favorites();
   const currentID = state.recipe.id
@@ -191,6 +186,20 @@ const controlFav = () => {
   favoritesView.toggleFavMenu(state.favs.getNumFavs());
 }
 
+//Restore favs on page load
+window.addEventListener('load', () => {
+  state.favs = new Favorites();
+
+  // Restore favs
+  state.favs.readStorage();
+
+  //Toggle fav button
+  favoritesView.toggleFavMenu(state.favs.getNumFavs());
+
+  // render favs
+  console.log(state)
+  state.favs.favs.forEach(fav => favoritesView.renderFav(fav));
+})
 
 //Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
@@ -216,5 +225,3 @@ elements.recipe.addEventListener('click', e => {
 
   // console.log(state.recipe.ingredients)
 });
-
-window.l = new  List()
