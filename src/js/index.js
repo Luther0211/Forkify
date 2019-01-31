@@ -44,7 +44,7 @@ const controlSearch = async () => {
       }
 
     } catch(error) {
-      alert("Recipe not found :(")
+      Swal(`Recipe not found :(`, '', 'error')
       clearLoader();
     }
   } else {
@@ -101,7 +101,8 @@ const controlRecipe = async () => {
 
     } catch (error) {
       console.log(error)
-      alert("Error Prossesing the recipe")
+      Swal(`Error Prossesing the recipe`, '', 'error')
+
     }
   }
 };

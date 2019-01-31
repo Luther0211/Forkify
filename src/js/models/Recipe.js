@@ -17,7 +17,7 @@ export default class Recipe {
 
     } catch (error) {
       console.log(error)
-      alert("something went wrong :(")
+      Swal(`something went wrong :(`, '', 'error')
     }
   }
 
